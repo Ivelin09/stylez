@@ -4,6 +4,7 @@ import CreateProd from './components/CreateProd'
 import DisplayProd from './components/DisplayProd'
 import Register from './components/Register'
 import NotFound from './components/NotFound'
+import Login from './components/Login'
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
               
         </Route>
         <Route path="/NotFound" element={<NotFound />}>
+              
+        </Route>
+        <Route path="/Login" element={<Login />}>
               
         </Route>
       </Routes>

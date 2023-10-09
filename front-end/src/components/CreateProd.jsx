@@ -20,7 +20,7 @@ const CreateProd = () => {
                 }),
             }).then((res) => res.json());
             console.log(response);
-            getRole = response;
+            getRole = response.role;
 
         }
 

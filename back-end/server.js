@@ -66,9 +66,28 @@ server.post('/users', async (req, res) => {
 
 server.post('/role', async (req, res) => {
   let decoded = await jwt.verify(req.body.key, 'fdsafewt34aqrt43rtq23dsad');
-  console.log(decoded.key.role) 
-  let role = decoded.key.role
-  res.json(role)
+  console.log(decoded.key.role)
+  let tokenData = { role: decoded.key.role, username: decoded.key.username }
+  res.json(tokenData)
+})
+
+server.post('/login', async (req, res) => {
+
+  const user = await users.findOne({ username: req.body.username });
+  if (user) {
+    const result = req.body.password === user.password;
+    if (result) {
+      let key = { username: req.body.user, role: req.body.role }
+      const token = await jwt.sign({ key }, 'fdsafewt34aqrt43rtq23dsad', { algorithm: 'HS256' }, { expiresIn: '24h' });
+      res.status(200).json({
+        status: 'success',
+        token: {
+          token
+        }
+      });
+    } else res.status(404).send('Status: Not Found')
+  }
+  console.log(res.status)
 })
 
 server.listen(8000, () => {
